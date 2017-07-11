@@ -111,34 +111,43 @@ namespace ASampleApp.Pages
 			{
 
 				PhotoSize = PhotoSize.Small,
+                CompressionQuality = 10,
 				//CustomPhotoSize = 50,
 				Directory = "Sample",
 				Name = "test.jpg"
 			});
 
+        
 			if (_file == null)
 				return;
 
-//https://forums.xamarin.com/discussion/81344/how-to-convert-image-from-plugin-media-to-base64
+////file -> Stream -> Byte[] -> Image.Source via Byte[]
+////https://forums.xamarin.com/discussion/81344/how-to-convert-image-from-plugin-media-to-base64
 
 			var stream = _file.GetStream();
 			var bytes = new byte[stream.Length];
 			await stream.ReadAsync(bytes, 0, (int)stream.Length);
 			string base64 = System.Convert.ToBase64String(bytes);
 
-//https://forums.xamarin.com/discussion/23049/how-to-show-images-from-a-list-base64-encoded-string
-			Byte[] imageBase64 = System.Convert.FromBase64String(base64);
-			_tempDogImage.Source = ImageSource.FromStream(() => { return new MemoryStream(imageBase64);});
+////https://forums.xamarin.com/discussion/23049/how-to-show-images-from-a-list-base64-encoded-string
+			//Byte[] imageBase64 = System.Convert.FromBase64String(base64);
+			////			_tempDogImage.Source = ImageSource.FromStream(() => { return new MemoryStream(imageBase64);});
+            //_tempDogImage.Source = ImageSource.FromStream(() => { return new MemoryStream(Convert.FromBase64String(base64)); });
 
-            MyViewModel.PhotoSourceBaseSixtyFourEntry = base64;
-            int oneInt = 1;
+ //           _tempDogImage.Source = ImageSource.FromFile(_file.Path);
+
+
+			MyViewModel.PhotoSourceBaseSixtyFourEntry = base64;
+//            int oneInt = 1;
+
+ //           stream.Dispose();
 
             //_tempDogImage.Source = base64;
 			//MyViewModel.PhotoSourceBaseSixtyFourEntry = base64;
 			//var formatString = System.String.Format("{0}", base64);
 			//Debug.WriteLine(formatString);
 
-			//await DisplayAlert("File Location", _file.Path, "OK");
+			await DisplayAlert("File Location", _file.Path, "OK");
 
 			//_dogImage.Source = ImageSource.FromStream(() =>
 			//{
@@ -148,7 +157,9 @@ namespace ASampleApp.Pages
 			//});
 
 			//or:
-			//_dogImage.Source = ImageSource.FromFile(_file.Path);
+			_tempDogImage.Source = ImageSource.FromFile(_file.Path);
+            //_dogImage.Source = ImageSource.FromFile(_file.Path);
+            stream.Dispose();
 			_file.Dispose();
 		}
 

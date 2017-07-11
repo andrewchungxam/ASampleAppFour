@@ -54,27 +54,56 @@ namespace ASampleApp
 			_firstButton.SetBinding (Button.CommandProperty, nameof (MyViewModel.MyFavoriteCommand));
 
 
-			Content = new StackLayout {
-				Margin = 20,
+
+            var mainStackLayout = new StackLayout() { 
+                Margin = 20,
 				Children =
 				{
 					_firstLabel,
 					_firstEntry,
-                    _secondEntry,
+					_secondEntry,
 					_firstButton,
 					_goToDogListButton,
 					_emptyLabel,
-                    _addAddDogPhotoButton,
-                    _addAddDogPhotoURLButton,
-                    _goToDogPhotoListButton,
-                    _emptyLabel2,
+					_addAddDogPhotoButton,
+					_addAddDogPhotoURLButton,
+					_goToDogPhotoListButton,
+					_emptyLabel2,
 					_addAddDogPhotoBase64Button,
-                    _goToDogPhotoBase64ListButton
+					_goToDogPhotoBase64ListButton
 
 
 				}
+            
+            };
 
-			};
+			var myScrollView = new ScrollView() { };
+            myScrollView.Content = mainStackLayout;
+
+            Content = myScrollView;
+
+   //         Content = new StackLayout 
+   //         {
+			//	Margin = 20,
+			//	Children =
+			//	{
+			//		_firstLabel,
+			//		_firstEntry,
+   //                 _secondEntry,
+			//		_firstButton,
+			//		_goToDogListButton,
+			//		_emptyLabel,
+   //                 _addAddDogPhotoButton,
+   //                 _addAddDogPhotoURLButton,
+   //                 _goToDogPhotoListButton,
+   //                 _emptyLabel2,
+			//		_addAddDogPhotoBase64Button,
+   //                 _goToDogPhotoBase64ListButton
+
+
+			//	}
+
+			//};
 		}
 
 		protected override void OnAppearing ()

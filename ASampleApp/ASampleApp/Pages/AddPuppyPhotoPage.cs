@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Xamarin.Forms;
+using Xamarin.Forms;
 using Plugin.Media;
 using Plugin.Media.Abstractions;
 
@@ -42,7 +43,7 @@ namespace ASampleApp
 			//_photoURLEntry.SetBinding (Entry.TextProperty, nameof (MyViewModel.PhotoURLEntry));
 			_firstButton.SetBinding (Button.CommandProperty, nameof (MyViewModel.MyFavoriteCommand));
 			_takePhoto.SetBinding (Button.CommandProperty, nameof (MyViewModel.MySecondFavoriteCommand));
-
+            _dogImage.SetBinding(Image.SourceProperty, nameof(MyViewModel.PhotoURLEntry));
 
 			Content = new StackLayout () {
 				Children = {
@@ -63,12 +64,26 @@ namespace ASampleApp
 		protected override void OnAppearing ()
 		{
 			base.OnAppearing ();
-			_takePhoto.Clicked += OnTakePhotoButton_Clicked;
-
+//			_takePhoto.Clicked += OnTakePhotoButton_Clicked;
+            MyViewModel.TakePhotoFailed+= MyViewModel_TakePhotoFailed;
+			MyViewModel.TakePhotoFailed += MyViewModel_TakePhotoSucceeded;
 
 		}
 
-		async void OnTakePhotoButton_Clicked (object sender, EventArgs e)
+        void MyViewModel_TakePhotoFailed(object sender, ASampleApp.AddPuppyPhotoViewModel.AlertEventArgs e)
+        {
+            Device.BeginInvokeOnMainThread(async () => 
+                                           await DisplayAlert(e.Title, e.Message, "OK"));
+        }
+
+		private void MyViewModel_TakePhotoSucceeded(object sender, AddPuppyPhotoViewModel.AlertEventArgs e)
+		{
+			Device.BeginInvokeOnMainThread(async () =>
+										   await DisplayAlert(e.Title, e.Message, "OK"));
+
+		}
+
+        async void OnTakePhotoButton_Clicked (object sender, EventArgs e)
 		{
 			//throw new NotImplementedException ();
 			await CrossMedia.Current.Initialize ();
@@ -108,13 +123,20 @@ namespace ASampleApp
 		protected override void OnDisappearing ()
 		{
 			base.OnDisappearing ();
-			_takePhoto.Clicked -= OnTakePhotoButton_Clicked;
+			
+            //WITHOUT COMMAND + EVENT BINDING
+            _takePhoto.Clicked -= OnTakePhotoButton_Clicked;
+
+			//WITH EVENT BINDING
+			MyViewModel.TakePhotoFailed -= MyViewModel_TakePhotoFailed;
+            MyViewModel.TakePhotoFailed -= MyViewModel_TakePhotoSucceeded;
+
 
 
 		}
 
 
-	}
+    }
 }
 
 

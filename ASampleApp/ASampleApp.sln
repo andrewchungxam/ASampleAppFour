@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ASampleApp.iOS", "iOS\ASamp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ASampleApp.Droid", "Droid\ASampleApp.Droid.csproj", "{3188DAE1-A51E-472D-B123-4ECF65D1196B}"
 EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "ASampleApp.CosmosDB", "ASampleApp.CosmosDB\ASampleApp.CosmosDB.shproj", "{4452C8A3-4B32-4DA9-8EE5-F402B7D54C4C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|iPhoneSimulator = Debug|iPhoneSimulator

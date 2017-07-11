@@ -29,7 +29,6 @@
     <MtouchArch>i386, x86_64</MtouchArch>
     <MtouchHttpClientHandler>HttpClientHandler</MtouchHttpClientHandler>
     <PlatformTarget>x86</PlatformTarget>
-    <CodesignProvision>ASampleAppFourProfile</CodesignProvision>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhone' ">
     <DebugType>pdbonly</DebugType>
@@ -79,7 +78,6 @@
     <MtouchArch>ARMv7, ARM64</MtouchArch>
     <MtouchHttpClientHandler>HttpClientHandler</MtouchHttpClientHandler>
     <PlatformTarget>x86</PlatformTarget>
-    <CodesignProvision>ASampleAppFourProvisioningProfile</CodesignProvision>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -110,29 +108,8 @@
     <Reference Include="Plugin.Media">
       <HintPath>..\packages\Xam.Plugin.Media.2.6.2\lib\Xamarin.iOS10\Plugin.Media.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Azure.Mobile">
-      <HintPath>..\packages\Microsoft.Azure.Mobile.0.13.1\lib\Xamarin.iOS10\Microsoft.Azure.Mobile.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Azure.Mobile.iOS.Bindings">
-      <HintPath>..\packages\Microsoft.Azure.Mobile.0.13.1\lib\Xamarin.iOS10\Microsoft.Azure.Mobile.iOS.Bindings.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Azure.Mobile.Push">
-      <HintPath>..\packages\Microsoft.Azure.Mobile.Push.0.13.1\lib\Xamarin.iOS10\Microsoft.Azure.Mobile.Push.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Azure.Mobile.Push.iOS.Bindings">
-      <HintPath>..\packages\Microsoft.Azure.Mobile.Push.0.13.1\lib\Xamarin.iOS10\Microsoft.Azure.Mobile.Push.iOS.Bindings.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Azure.Mobile.Analytics">
-      <HintPath>..\packages\Microsoft.Azure.Mobile.Analytics.0.13.1\lib\Xamarin.iOS10\Microsoft.Azure.Mobile.Analytics.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Azure.Mobile.Analytics.iOS.Bindings">
-      <HintPath>..\packages\Microsoft.Azure.Mobile.Analytics.0.13.1\lib\Xamarin.iOS10\Microsoft.Azure.Mobile.Analytics.iOS.Bindings.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Azure.Mobile.Crashes">
-      <HintPath>..\packages\Microsoft.Azure.Mobile.Crashes.0.13.1\lib\Xamarin.iOS10\Microsoft.Azure.Mobile.Crashes.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Azure.Mobile.Crashes.iOS.Bindings">
-      <HintPath>..\packages\Microsoft.Azure.Mobile.Crashes.0.13.1\lib\Xamarin.iOS10\Microsoft.Azure.Mobile.Crashes.iOS.Bindings.dll</HintPath>
+    <Reference Include="Microsoft.Azure.DocumentDB.Core">
+      <HintPath>..\packages\Microsoft.Azure.DocumentDB.Core.1.3.2\lib\netstandard1.6\Microsoft.Azure.DocumentDB.Core.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -156,6 +133,7 @@
     <Compile Include="SQLiteAsync.cs" />
     <Compile Include="SQLite.cs" />
   </ItemGroup>
+  <Import Project="..\ASampleApp.CosmosDB\ASampleApp.CosmosDB.projitems" Label="Shared" Condition="Exists('..\ASampleApp.CosmosDB\ASampleApp.CosmosDB.projitems')" />
   <Import Project="..\ASampleApp\ASampleApp.projitems" Label="Shared" Condition="Exists('..\ASampleApp\ASampleApp.projitems')" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <Import Project="..\packages\Xamarin.Forms.2.3.4.224\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.targets" Condition="Exists('..\packages\Xamarin.Forms.2.3.4.224\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.targets')" />

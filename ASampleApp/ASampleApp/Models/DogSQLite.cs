@@ -1,4 +1,4 @@
-﻿//This is for SQLite
+﻿////This is for SQLite
 
 using System;
 using SQLite;
@@ -24,7 +24,7 @@ namespace ASampleApp.Models
 		[MaxLength (250)]
 		public string DogPictureFile { get; set;}
 
-		[MaxLength (250)]
+		//[MaxLength (250)]
 		public string DogPictureSource { get; set;}
 
     }

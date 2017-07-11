@@ -1,4 +1,15 @@
-﻿using System;
+﻿//
+// PLEASE USE DOGLISTMVVMPAGE INSTEAD
+//
+//
+//
+//
+//
+//
+
+
+
+using System;
 using System.Collections.Generic;
 using ASampleApp.Models;
 namespace ASampleApp

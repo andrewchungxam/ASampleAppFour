@@ -11,6 +11,8 @@ namespace ASampleApp
 		Entry _photoURLEntry;
 		Button _firstButton;
 
+        Image _dogImage;
+
 		public AddDogPhotoURLPage ()
 		{
 			this.Title = "Add Dog Photo URL Page";
@@ -20,23 +22,28 @@ namespace ASampleApp
 			_secondEntry = new Entry () { Placeholder = "Fur color" };
 			_photoURLEntry = new Entry () { Placeholder = "Dog URL"};
 			_firstButton = new Button () { Text = "Button" };
+            _dogImage = new Image() { };
 
 			_firstLabel.SetBinding (Label.TextProperty, nameof (MyViewModel.FirstLabel), BindingMode.TwoWay);
 			_firstEntry.SetBinding (Entry.TextProperty, nameof (MyViewModel.FirstEntryText));
 			_secondEntry.SetBinding (Entry.TextProperty, nameof (MyViewModel.SecondEntryText));
 			_photoURLEntry.SetBinding (Entry.TextProperty, nameof (MyViewModel.PhotoURLEntry));
 			_firstButton.SetBinding (Button.CommandProperty, nameof (MyViewModel.MyFavoriteCommand));
+            _dogImage.SetBinding(Image.SourceProperty, nameof(MyViewModel.PhotoURLEntry), BindingMode.TwoWay);
 
-			Content = new StackLayout {
-				Margin = 20,
-				Children =
-				{
-					_firstLabel,
-					_firstEntry,
-					_secondEntry,
-					_photoURLEntry,
-					_firstButton,
-
+			//https://s-media-cache-ak0.pinimg.com/736x/62/22/3c/62223cc60b713821fa04b738f740d328--baby-beagle-beagle-pups.jpg
+			
+            Content = new StackLayout
+            {
+                Margin = 20,
+                Children =
+                {
+                    _firstLabel,
+                    _firstEntry,
+                    _secondEntry,
+                    _photoURLEntry,
+                    _firstButton,
+                    _dogImage
 				}
 			};
 		}

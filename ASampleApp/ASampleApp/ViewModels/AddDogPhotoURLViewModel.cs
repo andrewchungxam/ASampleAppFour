@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Windows.Input;
+using ASampleApp.CosmosDB;
+using ASampleApp.Models;
 using Plugin.Media;
 using Plugin.Media.Abstractions;
 using Xamarin.Forms;
@@ -50,24 +52,33 @@ namespace ASampleApp
 		public AddDogPhotoURLViewModel ()
 		{
 			MyFavoriteCommand = new Command (OnMyFavoriteAction);
-			MySecondFavoriteCommand = new Command (OnMySecondFavoriteCommand);
+			MySecondFavoriteCommand = new Command (OnMySecondFavoriteAction);
 		}
 
 		void OnMyFavoriteAction ()
 		{
-			//			App.DogRep.AddNewDogPhotoURL (this.FirstEntryText, this.SecondEntryText, this.PhotoURLEntry);
-			App.DogRep.AddNewDogPhotoFile (this.FirstEntryText, this.SecondEntryText, this.PhotoSourceEntry);
 
+			//point 1
+			//App.DogRep.AddNewDogPhotoURL (this.FirstEntryText, this.SecondEntryText, this.PhotoURLEntry);
+
+            //point 2
+            App.DogRep.AddNewDogPhotoSource(this.FirstEntryText, this.SecondEntryText, this.PhotoSourceEntry);
+            AddLastDogToCosmosDBAsync();
 			string _lastNameString = App.DogRep.GetLastDog ().Name;
-
 			string _lastNameStringAdd = System.String.Format ("{0} added to the list!", _lastNameString);
 			this.FirstLabel = _lastNameStringAdd;
 
 			return;
 		}
 
+        private async void AddLastDogToCosmosDBAsync()
+        {
+            var myDog = App.DogRep.GetLastDog();
+            var myCosmosDog = DogConverter.ConvertToCosmosDog(myDog); 
+            await CosmosDB.CosmosDBService.PostCosmosDogAsync(myCosmosDog);
+        }
 
-		async void OnMySecondFavoriteCommand ()
+        async void OnMySecondFavoriteAction ()
 		{
 
 			//TODO - Display Alert from VM Page.

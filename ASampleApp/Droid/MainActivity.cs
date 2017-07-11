@@ -9,11 +9,6 @@ using Android.Widget;
 using Android.OS;
 using Plugin.Permissions;
 
-using Microsoft.Azure.Mobile;
-using Microsoft.Azure.Mobile.Push;
-using Microsoft.Azure.Mobile.Analytics;
-using Microsoft.Azure.Mobile.Crashes;
-
 namespace ASampleApp.Droid
 {
 	[Activity (Label = "ASampleApp.Droid", Icon = "@drawable/icon", Theme = "@style/MyTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
@@ -29,6 +24,8 @@ namespace ASampleApp.Droid
 			global::Xamarin.Forms.Forms.Init (this, bundle);
 
 
+
+
 			LoadApplication (new App ());
 		}
 
@@ -36,13 +33,6 @@ namespace ASampleApp.Droid
 		{
 			PermissionsImplementation.Current.OnRequestPermissionsResult(requestCode, permissions, grantResults);
 		}
-
-		//protected override void OnNewIntent(Android.Content.Intent intent)
-		//{
-		//	base.OnNewIntent(intent);
-		//	Push.CheckLaunchedFromNotification(this, intent);
-		//}
-
 
 	}
 }

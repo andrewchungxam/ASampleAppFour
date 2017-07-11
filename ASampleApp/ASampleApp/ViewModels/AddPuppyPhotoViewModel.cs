@@ -1,16 +1,18 @@
 ﻿using System;
 using System.Windows.Input;
+using ASampleApp.CosmosDB;
 using Xamarin.Forms;
 
 namespace ASampleApp
 {
-	public class AddPhotoPhotoViewModel : BaseViewModel
+	public class AddPuppyPhotoViewModel : BaseViewModel
 	{
 		string _firstLabel;
 		string _firstEntryText;
 		string _secondEntryText;
 		string _photoURLEntry;
 		string _photoSourceEntry;
+
 
 		public ICommand MyFavoriteCommand { get; set; }
 		public ICommand MySecondFavoriteCommand { get; set; }
@@ -44,22 +46,36 @@ namespace ASampleApp
 			set { SetProperty (ref _photoSourceEntry, value); }
 		}
 
-		public AddPhotoPhotoViewModel ()
+
+
+
+
+		public AddPuppyPhotoViewModel ()
 		{
 			MyFavoriteCommand = new Command (OnMyFavoriteAction);
 		}
 
 		void OnMyFavoriteAction ()
 		{
-			//			App.DogRep.AddNewDogPhotoURL (this.FirstEntryText, this.SecondEntryText, this.PhotoURLEntry);
-			App.DogRep.AddNewDogPhotoURL (this.FirstEntryText, this.SecondEntryText, this.PhotoSourceEntry);
 
+            //point 1
+			//App.DogRep.AddNewDogPhotoURL(this.FirstEntryText, this.SecondEntryText, this.PhotoURLEntry);
+
+            //point 2
+            App.DogRep.AddNewDogPhotoSource(this.FirstEntryText, this.SecondEntryText, this.PhotoSourceEntry);
+			AddLastDogToCosmosDBAsync();
 			string _lastNameString = App.DogRep.GetLastDog ().Name;
-
 			string _lastNameStringAdd = System.String.Format ("{0} added to the list!", _lastNameString);
 			this.FirstLabel = _lastNameStringAdd;
 
 			return;
+		}
+
+		private async void AddLastDogToCosmosDBAsync()
+		{
+			var myDog = App.DogRep.GetLastDog();
+			var myCosmosDog = DogConverter.ConvertToCosmosDog(myDog);
+			await CosmosDB.CosmosDBService.PostCosmosDogAsync(myCosmosDog);
 		}
 	}
 }

@@ -13,7 +13,10 @@ namespace ASampleApp
 		}
 
 		//protected T ViewModel => _viewModel ?? (_viewModel = new T ());
-		protected T MyViewModel {
+		//protected T MyViewModel {
+		public T MyViewModel
+		{
+
 			get 
 			{
 				return _viewModel ?? (_viewModel = new T ());

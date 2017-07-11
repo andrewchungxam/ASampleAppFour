@@ -1,4 +1,5 @@
 ﻿using System;
+using ASampleApp.Pages;
 using Xamarin.Forms;
 namespace ASampleApp
 {
@@ -12,9 +13,13 @@ namespace ASampleApp
 
 		Button _addAddDogPhotoButton;
 		Button _addAddDogPhotoURLButton;
+        Button _addAddDogPhotoBase64Button;
         Button _goToDogPhotoListButton;
 
+        Button _goToDogPhotoBase64ListButton;
+
 		Label _emptyLabel;
+        Label _emptyLabel2;
 
 		public FirstPage ()
 		{
@@ -28,14 +33,17 @@ namespace ASampleApp
 			_firstLabel = new Label (); //{ Text = "Hello"};
             _firstEntry = new Entry () {Placeholder = "Dog Name"};
             _secondEntry = new Entry() { Placeholder = "Fur color" };
-			_firstButton = new Button () { Text = "Button" };
+			_firstButton = new Button () { Text = "Submit" };
 			_goToDogListButton = new Button () { Text = "Go to Dog List" };
 			_emptyLabel = new Label () { Text = " " };
+			_emptyLabel2 = new Label() { Text = " " };
+
 
 			_addAddDogPhotoButton = new Button() { Text = "Add Dog Photo" };
             _addAddDogPhotoURLButton = new Button { Text = "Add Dog Photo URL" };
-            _goToDogPhotoListButton = new Button() { Text = "Go to Dog Photo List"}; 
-
+            _addAddDogPhotoBase64Button = new Button { Text = "Add Dog Photo Base64" };
+            _goToDogPhotoListButton = new Button() { Text = "Go to Dog Photo List"};
+            _goToDogPhotoBase64ListButton = new Button() { Text = "Go to Dog Photo Base64 List" }; 
 
 			//METHOD#2 MVVM
 			//
@@ -58,7 +66,11 @@ namespace ASampleApp
 					_emptyLabel,
                     _addAddDogPhotoButton,
                     _addAddDogPhotoURLButton,
-                    _goToDogPhotoListButton
+                    _goToDogPhotoListButton,
+                    _emptyLabel2,
+					_addAddDogPhotoBase64Button,
+                    _goToDogPhotoBase64ListButton
+
 
 				}
 
@@ -74,22 +86,27 @@ namespace ASampleApp
 			_goToDogListButton.Clicked += OnToDogListClicked;
 			_addAddDogPhotoButton.Clicked += OnAddDogPhotoButtonClicked;
 			_addAddDogPhotoURLButton.Clicked += OnAddDogPhotoURLButtonClicked;
-
+            _addAddDogPhotoBase64Button.Clicked += OnAddDogPhotoBase64ButtonClicked;
 			_goToDogPhotoListButton.Clicked += OnAddDogPhotoListLButtonClicked;
 
-
-
-
-			//TEST BY ADDING DOGS ON EACH ONAPPEARING
-			//App.DogRep.AddNewDog("Oliver", "Black");
-			//App.DogRep.AddNewDog("Oliver", "Black");
+			_goToDogPhotoBase64ListButton.Clicked += OnAddDogPhotoBase64ListButtonClicked;
 
 
 		}
 
+        private void OnAddDogPhotoBase64ListButtonClicked(object sender, EventArgs e)
+        {
+			Device.BeginInvokeOnMainThread(() => Navigation.PushAsync(new DogListPhotoBase64PhotoPage()));
 
+		}
 
-		protected override void OnDisappearing ()
+        private void OnAddDogPhotoBase64ButtonClicked(object sender, EventArgs e)
+        {
+            Device.BeginInvokeOnMainThread(() => Navigation.PushAsync(new AddDogPhotoBaseSixtyFourPage()));
+
+		}
+
+        protected override void OnDisappearing ()
 		{
 			base.OnDisappearing ();
 			//METHOD 1
@@ -99,16 +116,22 @@ namespace ASampleApp
 			_goToDogListButton.Clicked -= OnToDogListClicked;
             _addAddDogPhotoButton.Clicked -= OnAddDogPhotoButtonClicked;
 			_addAddDogPhotoURLButton.Clicked -= OnAddDogPhotoURLButtonClicked;
-
+			_addAddDogPhotoBase64Button.Clicked -= OnAddDogPhotoBase64ButtonClicked;
 			_goToDogPhotoListButton.Clicked -= OnAddDogPhotoListLButtonClicked;
+			_goToDogPhotoBase64ListButton.Clicked -= OnAddDogPhotoBase64ListButtonClicked;
 
 		}
 
 		void OnAddDogPhotoListLButtonClicked (object sender, EventArgs e)
 		{
-			//throw new NotImplementedException ();
+            //throw new NotImplementedException ();
+            //Option 1 - creating a new DogListPhotoPage
+            Device.BeginInvokeOnMainThread (()=> Navigation.PushAsync (new DogListPhotoPage()));
 
-			Device.BeginInvokeOnMainThread (()=> Navigation.PushAsync (new DogListPhotoPage()));
+            //TODO - using a static DogListPhotoPage
+            //Option 2 - using a static DogListPhotoPage
+ //           Device.BeginInvokeOnMainThread(() => Navigation.PushAsync(App.MyDogListPhotoPage));
+
 		}
 
 		private void OnAddDogPhotoButtonClicked(object sender, EventArgs e)

@@ -6,7 +6,7 @@ using Plugin.Media.Abstractions;
 
 namespace ASampleApp
 {
-	public class AddPuppyPhotoPage : BaseContentPage<AddPhotoPhotoViewModel>
+	public class AddPuppyPhotoPage : BaseContentPage<AddPuppyPhotoViewModel>
 	{
 		Label _firstLabel;
 		Entry _firstEntry;

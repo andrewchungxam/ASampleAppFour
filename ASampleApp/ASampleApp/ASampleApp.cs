@@ -1,11 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using ASampleApp.Data;
+using ASampleApp.Models;
 using Xamarin.Forms;
-
-using Microsoft.Azure.Mobile;
-using Microsoft.Azure.Mobile.Analytics;
-using Microsoft.Azure.Mobile.Crashes;
-using Microsoft.Azure.Mobile.Push;
 
 namespace ASampleApp
 {
@@ -14,10 +13,13 @@ namespace ASampleApp
 
         public static DogRepository DogRep { get; private set; }
 
+        public static DogListPhotoPage MyDogListPhotoPage { get; set; }
+
+
 		public App ()
 		{
 
-            string dbPath = FileAccessHelper.GetLocalFilePath("dog2.db3");
+            string dbPath = FileAccessHelper.GetLocalFilePath("dog18.db3");
             DogRep = new DogRepository(dbPath);
 
 			var applicationStartPage = new FirstPage ();
@@ -35,49 +37,47 @@ namespace ASampleApp
 			//		}
 			//	}
 			//};
+            var myNavigationPage = new NavigationPage(applicationStartPage);
+            MainPage = myNavigationPage;
 
-			MainPage = new NavigationPage (applicationStartPage);
+            //Initialize Dog Photo View Page
+            MyDogListPhotoPage = new DogListPhotoPage();
+
+            //THIS WILL RUN EACH TIME YOU CHANGE THE PATH OF THE DATABASE (ie. creating a new Database)
+            IfDogSQLListEmptyThenFill();
+
 		}
 
-		protected override void OnStart ()
-		{
+        private void IfDogSQLListEmptyThenFill()
+        {
+			var list = new List<Dog> { };
+			list = App.DogRep.GetAllDogs();
 
-			//// This should come before MobileCenter.Start() is called
-			Push.PushNotificationReceived += (sender, e) =>
+			if (!list.Any()) //if LIST == EMPTY
 			{
-
-				// Add the notification message and title to the message
-				var summary = $"Push notification received:" +
-                    $"\n\tNotification title: {e.Title}" +
-                    $"\n\tMessage: {e.Message}";
-
-				// If there is custom data associated with the notification,
-				// print the entries
-				if (e.CustomData != null)
+				var myListOfCosmosDogs = Task.Run(async () => await CosmosDB.CosmosDBService.GetAllCosmosDogs()).Result;
+				foreach (var item in myListOfCosmosDogs)
 				{
-					summary += "\n\tCustom data:\n";
-					foreach (var key in e.CustomData.Keys)
-					{
-						summary += $"\t\t{key} : {e.CustomData[key]}\n";
-					}
+					var tempDog = CosmosDB.DogConverter.ConvertToDog(item);
+					App.DogRep.AddNewDogPhotoSource(tempDog.Name, tempDog.FurColor, tempDog.DogPictureSource);
+
+                    //TODO: MW
+                    App.MyDogListPhotoPage.MyViewModel._observableCollectionOfDogs.Add(tempDog);
+
+                       //_observableCollectionOfDogs.Add(item);
 				}
-
-				// Send the notification summary to debug output
-				System.Diagnostics.Debug.WriteLine(summary);
-			};
+			}
 
 
 
 
+
+
+		}
+
+        protected override void OnStart ()
+		{
 			// Handle when your app starts
-
-//			MobileCenter.Start("6c5b3d39-15aa-455b-95d7-c5f65578fb4b", typeof(Push));
-
-			MobileCenter.Start("ios=294968e2-d712-43fc-a8bd-1492ed9ea29c;" +
-				   "uwp={Your UWP App secret here};" +
-				   "android=6c5b3d39-15aa-455b-95d7-c5f65578fb4b;",
-				   typeof(Analytics), typeof(Crashes), typeof(Push));
-
 		}
 
 		protected override void OnSleep ()

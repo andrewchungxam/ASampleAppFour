@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>{9E309EFC-173C-44E9-B794-7E8B4902CD95}</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>ASampleApp</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)ASampleApp.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\SampleViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Pages\FirstPage.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\FirstViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Dog.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Data\FileAccessHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\DogSQLite.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Data\DogRepository.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Pages\DogListPage.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\DogListViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Pages\Base\BaseContentPage.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\Base\BaseViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Pages\DogListMVVMPage.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\DogListMVVMViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Pages\AddPuppyPhotoPage.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Pages\DogListPhotoPage.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\AddPhotoPhotoViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\DogListPhotoViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Pages\AddDogPhotoURLPage.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\AddDogPhotoURLViewModel.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="$(MSBuildThisFileDirectory)Models\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Pages\" />
+    <Folder Include="$(MSBuildThisFileDirectory)ViewModels\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Data\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Pages\Base\" />
+    <Folder Include="$(MSBuildThisFileDirectory)ViewModels\Base\" />
+  </ItemGroup>
+</Project>

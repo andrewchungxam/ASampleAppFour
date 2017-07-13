@@ -34,7 +34,7 @@ namespace ASampleApp
             _firstEntry = new Entry () {Placeholder = "Dog Name"};
             _secondEntry = new Entry() { Placeholder = "Fur color" };
 			_firstButton = new Button () { Text = "Submit" };
-			_goToDogListButton = new Button () { Text = "Go to Dog List" };
+            _goToDogListButton = new Button () { Text = "Go to Dog List" };
 			_emptyLabel = new Label () { Text = " " };
 			_emptyLabel2 = new Label() { Text = " " };
 
@@ -123,18 +123,6 @@ namespace ASampleApp
 
 		}
 
-        private void OnAddDogPhotoBase64ListButtonClicked(object sender, EventArgs e)
-        {
-			Device.BeginInvokeOnMainThread(() => Navigation.PushAsync(new DogListPhotoBase64PhotoPage()));
-
-		}
-
-        private void OnAddDogPhotoBase64ButtonClicked(object sender, EventArgs e)
-        {
-            Device.BeginInvokeOnMainThread(() => Navigation.PushAsync(new AddDogPhotoBaseSixtyFourPage()));
-
-		}
-
         protected override void OnDisappearing ()
 		{
 			base.OnDisappearing ();
@@ -151,17 +139,6 @@ namespace ASampleApp
 
 		}
 
-		void OnAddDogPhotoListLButtonClicked (object sender, EventArgs e)
-		{
-            //throw new NotImplementedException ();
-            //Option 1 - creating a new DogListPhotoPage
-            Device.BeginInvokeOnMainThread (()=> Navigation.PushAsync (new DogListPhotoPage()));
-
-            //TODO - using a static DogListPhotoPage
-            //Option 2 - using a static DogListPhotoPage
- //           Device.BeginInvokeOnMainThread(() => Navigation.PushAsync(App.MyDogListPhotoPage));
-
-		}
 
 		private void OnAddDogPhotoButtonClicked(object sender, EventArgs e)
         {
@@ -174,14 +151,54 @@ namespace ASampleApp
 			Device.BeginInvokeOnMainThread (()=>Navigation.PushAsync (new AddDogPhotoURLPage()));	
 		}
 
-        void OnToDogListClicked (object sender, EventArgs e)
+
+
+
+
+		//ADD PHOTO
+		private void OnAddDogPhotoBase64ButtonClicked(object sender, EventArgs e)
+		{
+			Device.BeginInvokeOnMainThread(() => Navigation.PushAsync(new AddDogPhotoBaseSixtyFourPage()));
+		}
+
+
+		void OnToDogListClicked(object sender, EventArgs e)
 		{
 			//OPTION 1
 			//Device.BeginInvokeOnMainThread (() => Navigation.PushAsync (new DogListPage ()));
 
 			//OPTION 2
-			Device.BeginInvokeOnMainThread (() => Navigation.PushAsync (new DogListMVVMPage ()));
+            Device.BeginInvokeOnMainThread(() => Navigation.PushAsync(App.MyDogListMVVMPage));
 		}
+
+
+
+		void OnAddDogPhotoListLButtonClicked(object sender, EventArgs e)
+		{
+			//Option 1 - creating a new DogListPhotoPage
+			//THIS OPTION IS NOT COMPATIBLE WITH //ADD DOG TO OBSERVABLE COLLECTION OF THE LISTVIEW
+			//Device.BeginInvokeOnMainThread(() => Navigation.PushAsync(new DogListPhotoPage()));
+
+			//TODO - using a static DogListPhotoPage
+			//Option 2 - using a static DogListPhotoBase64Page
+            Device.BeginInvokeOnMainThread(() => Navigation.PushAsync(App.MyDogListPhotoPage));
+
+		}
+
+		//LIST
+		void OnAddDogPhotoBase64ListButtonClicked(object sender, EventArgs e)
+		{
+			//Option 1 - creating a new DogListPhotoPage
+			//Device.BeginInvokeOnMainThread(() => Navigation.PushAsync(new DogListPhotoBase64Page()));
+
+			//TODO - using a static DogListPhotoBase64Page
+			//Option 2 - using a static DogListPhotoBase64Page
+			Device.BeginInvokeOnMainThread(() => Navigation.PushAsync(App.MyDogListPhotoBase64Page));
+
+		}
+
+
+
 
 
 

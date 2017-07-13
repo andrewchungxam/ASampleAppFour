@@ -12,5 +12,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)CosmosDBStrings.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)CosmosDBService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DogConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)CosmosDBServicePhoto.cs" />
   </ItemGroup>
 </Project>

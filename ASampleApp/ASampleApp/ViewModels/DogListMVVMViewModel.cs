@@ -5,13 +5,14 @@ using System.Collections.ObjectModel;
 using System.Windows.Input;
 using Xamarin.Forms;
 using System.Diagnostics;
+using ASampleApp.CosmosDB;
 
 namespace ASampleApp
 {
 	public class DogListMVVMViewModel : BaseViewModel
 	{
 
-		ObservableCollection<Dog> _observableCollectionOfDogs;
+		public ObservableCollection<Dog> _observableCollectionOfDogs;
 
 		public ICommand DeleteDogFromListCommand { get; set; }
 
@@ -30,13 +31,16 @@ namespace ASampleApp
 
 		}
 
-		private void DeleteDogFromListAction(object obj)
+		private async void DeleteDogFromListAction(object obj)
 		{
 			Debug.WriteLine("DELETE DOG FROM LIST ACTION");
 
 			var myItem = obj as Dog;
 			_observableCollectionOfDogs.Remove(myItem);
 
+			var myCosmosDog = DogConverter.ConvertToCosmosDog(myItem);
+
+			await CosmosDBService.DeleteCosmosDogAsync(myCosmosDog);
 		}
 
 		public ObservableCollection<Dog> ObservableCollectionOfDogs

@@ -11,7 +11,18 @@ namespace ASampleApp.ViewModels.Helper
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
 			String myString = (String)value;
-            if (targetType != typeof(ImageSource))
+
+            if(string.IsNullOrEmpty(myString))
+            {
+                //base 64string of 1x1 blank png
+                myString = "R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==";
+				//https://webmasters.stackexchange.com/questions/92445/blank-image-what-to-use-base64-vs-1x1-jpeg-image/92447
+                //Or you can simply:  
+                return null; 
+			}
+
+
+			if (targetType != typeof(ImageSource))
 				throw new Exception("Covert - Base64ToImageSource expected ImageSource targetType.");
 
 			//https://forums.xamarin.com/discussion/23049/how-to-show-images-from-a-list-base64-encoded-string

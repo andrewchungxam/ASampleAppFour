@@ -8,11 +8,11 @@ using Xamarin.Forms;
 
 namespace ASampleApp.Pages
 {
-	public class DogListPhotoBase64PhotoPage : BaseContentPage<DogListPhotoBase64ViewModel>
+	public class DogListPhotoBase64Page : BaseContentPage<DogListPhotoBase64ViewModel>
 	{
 		ListView _dogListView;
 
-		public DogListPhotoBase64PhotoPage()
+		public DogListPhotoBase64Page()
 		{
 
 
@@ -162,7 +162,7 @@ namespace ASampleApp.Pages
 			}
 
 			var navigationPage = Application.Current.MainPage as NavigationPage;
-			var dogListPhotoPage = navigationPage.CurrentPage as DogListPhotoBase64PhotoPage;
+			var dogListPhotoPage = navigationPage.CurrentPage as DogListPhotoBase64Page;
 			var dogListPhotoViewModel = dogListPhotoPage.BindingContext as DogListPhotoBase64ViewModel;
 
 			//dogListPhotoViewModel.RefreshAllDataCommand?.Execute(true); //BM

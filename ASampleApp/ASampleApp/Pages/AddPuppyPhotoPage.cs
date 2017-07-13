@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Xamarin.Forms;
-using Xamarin.Forms;
+
 using Plugin.Media;
 using Plugin.Media.Abstractions;
 
@@ -65,8 +65,8 @@ namespace ASampleApp
 		{
 			base.OnAppearing ();
 //			_takePhoto.Clicked += OnTakePhotoButton_Clicked;
-            MyViewModel.TakePhotoFailed+= MyViewModel_TakePhotoFailed;
-			MyViewModel.TakePhotoFailed += MyViewModel_TakePhotoSucceeded;
+            MyViewModel.TakePhotoFailed += MyViewModel_TakePhotoFailed;
+            MyViewModel.TakePhotoSucceeded += MyViewModel_TakePhotoSucceeded;
 
 		}
 
@@ -76,12 +76,13 @@ namespace ASampleApp
                                            await DisplayAlert(e.Title, e.Message, "OK"));
         }
 
-		private void MyViewModel_TakePhotoSucceeded(object sender, AddPuppyPhotoViewModel.AlertEventArgs e)
+        private void MyViewModel_TakePhotoSucceeded(object sender, ASampleApp.AddPuppyPhotoViewModel.PhotoSavedSuccessAlertEventArgs e)
 		{
 			Device.BeginInvokeOnMainThread(async () =>
 										   await DisplayAlert(e.Title, e.Message, "OK"));
 
 		}
+
 
         async void OnTakePhotoButton_Clicked (object sender, EventArgs e)
 		{
@@ -129,7 +130,7 @@ namespace ASampleApp
 
 			//WITH EVENT BINDING
 			MyViewModel.TakePhotoFailed -= MyViewModel_TakePhotoFailed;
-            MyViewModel.TakePhotoFailed -= MyViewModel_TakePhotoSucceeded;
+            MyViewModel.TakePhotoSucceeded -= MyViewModel_TakePhotoSucceeded;
 
 
 

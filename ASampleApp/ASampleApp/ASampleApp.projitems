@@ -34,8 +34,10 @@
     <Compile Include="$(MSBuildThisFileDirectory)Pages\AddDogPhotoBaseSixtyFourPage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\AddDogPhotoBaseSixtyFourViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\Helper\Base64ToImageConverter.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Pages\DogListPhotoBase64PhotoPage.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Pages\DogListPhotoBase64Page.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\DogListPhotoBase64ViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Data\DogRepositoryBaseSixtyFour.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Data\DogPhotoRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)Models\" />

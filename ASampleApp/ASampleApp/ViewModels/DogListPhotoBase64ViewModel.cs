@@ -47,9 +47,8 @@ namespace ASampleApp.ViewModels
 			_observableCollectionOfDogs.Remove(myItem);
 
 
-			var myCosmosDog = DogConverter.ConvertToCosmosDog(myItem);
-
-			await CosmosDBService.DeleteCosmosDogAsync(myCosmosDog);
+//			var myCosmosDog = DogConverter.ConvertToCosmosDog(myItem);
+//			await CosmosDBService.DeleteCosmosDogAsync(myCosmosDog);
 		}
 
 

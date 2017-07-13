@@ -6,6 +6,7 @@ using Xamarin.Forms;
 //using System.Windows.Input;
 
 using ASampleApp.Data;
+using ASampleApp.CosmosDB;
 
 namespace ASampleApp
 {
@@ -61,7 +62,14 @@ namespace ASampleApp
 
             //OPTION 3 - RETURN DOG
 
+            //ADD NEW DOG
             App.DogRep.AddNewDog(this.FirstEntryText, this.SecondEntryText);
+			AddLastDogToCosmosDBAsync();
+
+			//ADD DOG TO OBSERVABLE COLLECTION OF THE LISTVIEW
+			var tempLastDog = App.DogRep.GetLastDog();
+            App.MyDogListMVVMPage.MyViewModel._observableCollectionOfDogs.Add(tempLastDog);
+
             string _lastNameString = App.DogRep.GetLastDog().Name;
 
             //NOT BOUND1
@@ -74,6 +82,14 @@ namespace ASampleApp
 
 
         }
+
+		private async void AddLastDogToCosmosDBAsync()
+		{
+			var myDog = App.DogRep.GetLastDog();
+			var myCosmosDog = DogConverter.ConvertToCosmosDog(myDog);
+            await CosmosDB.CosmosDBService.PostCosmosDogAsync(myCosmosDog);
+		}
+
 
 //        private async Task OnMySecondFavoriteCommand()
 //        {

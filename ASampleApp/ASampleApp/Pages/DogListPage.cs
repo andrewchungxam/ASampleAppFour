@@ -32,6 +32,7 @@ namespace ASampleApp
 
             //OPTION 2 - DOGCELL
             var myTemplate = new DataTemplate(typeof(DogViewCell));
+
             _dogListView.ItemTemplate = myTemplate;
 
             //DATASOURCE

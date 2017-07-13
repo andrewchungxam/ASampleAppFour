@@ -10,17 +10,14 @@ using Microsoft.Azure.Documents.Client;
 using ASampleApp;
 using ASampleApp.Models;
 
-
 namespace ASampleApp.CosmosDB
 {
-    public class CosmosDBService
-    {
+	public class CosmosDBServicePhoto
+	{
 
 		//DBS - Collections - Documents
 		static readonly string DatabaseId = "Xamarin";
-		static readonly string CollectionId = "ASampleAppFourDogList";
-
-		//static readonly string CollectionId = "ASampleAppFourDogListPhoto";
+	    static readonly string CollectionId = "ASampleAppFourDogListPhoto";
 
 
 		//CLIENT
@@ -67,20 +64,20 @@ namespace ASampleApp.CosmosDB
 		}
 
 		//POST
-        public static async Task PostCosmosDogAsync(CosmosDog cosmosDog)
+		public static async Task PostCosmosDogAsync(CosmosDog cosmosDog)
 		{
 			await myDocumentClient.CreateDocumentAsync(UriFactory.CreateDocumentCollectionUri(DatabaseId, CollectionId), cosmosDog);
 
 		}
 
 		//PUT
-        public static async Task PutCosmosDogAsync(CosmosDog cosmosDog2)
+		public static async Task PutCosmosDogAsync(CosmosDog cosmosDog2)
 		{
 			await myDocumentClient.ReplaceDocumentAsync(UriFactory.CreateDocumentUri(DatabaseId, CollectionId, cosmosDog2.Id), cosmosDog2);
 		}
 
 		//DELETE
-        public static async Task DeleteCosmosDogAsync(CosmosDog deleteCosmosDog)
+		public static async Task DeleteCosmosDogAsync(CosmosDog deleteCosmosDog)
 		{
 			await myDocumentClient.DeleteDocumentAsync(UriFactory.CreateDocumentUri(DatabaseId, CollectionId, deleteCosmosDog.Id));
 		}

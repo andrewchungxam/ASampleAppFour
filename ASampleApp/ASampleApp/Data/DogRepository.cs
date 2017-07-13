@@ -4,13 +4,41 @@ using SQLite;
 
 using ASampleApp.Models;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace ASampleApp.Data
 {
+
+    //THIS IS FOR DOGLISTMVVMPAGE
 	public class DogRepository
 	{
 
-		private SQLiteConnection sqliteConnection;
+        public DogRepository() 
+        {
+            IfEmptyCheckCosmosDB();
+        }
+
+        private void IfEmptyCheckCosmosDB()
+        {
+            var list = new List<Dog> { };
+            list = this.GetAllDogs();
+
+            if (!list.Any()) //if LIST == EMPTY
+            {
+                var myListOfCosmosDogs = Task.Run(async () => await CosmosDB.CosmosDBService.GetAllCosmosDogs()).Result;
+                foreach (var item in myListOfCosmosDogs)
+                {
+                    var tempDog = CosmosDB.DogConverter.ConvertToDog(item);
+                    this.AddNewDogPhotoSource(tempDog.Name, tempDog.FurColor, tempDog.DogPictureSource);
+
+                    //TODO: MW
+                    App.MyDogListMVVMPage.MyViewModel._observableCollectionOfDogs.Add(tempDog);
+                    //_observableCollectionOfDogs.Add(item);
+                }
+            }
+        }
+
+        private SQLiteConnection sqliteConnection;
 
 		public DogRepository (string dbPath)
 		{

@@ -1,24 +1,14 @@
-﻿/////////////////////////////
-///  BEFORE MVVM
-/// 
-/// 
-/// 
-/// 
-/// 
-/// 
-/// 
-/// 
-
-
-using System;
-using ASampleApp.ViewModels;
-
+﻿using System;
+using System.IO;
+using System.Diagnostics;
 using System.Threading.Tasks;
+
+using ASampleApp.ViewModels;
 using Xamarin.Forms;
+
 using Plugin.Media;
 using Plugin.Media.Abstractions;
-using System.Diagnostics;
-using System.IO;
+using ASampleApp.ViewModels.Helper;
 
 namespace ASampleApp.Pages
 {
@@ -33,9 +23,7 @@ namespace ASampleApp.Pages
 		Button _takePhoto;
 		Image _dogImage;
 
-        //DELETE THIS
         Image _tempDogImage;
-
 		MediaFile _file;
 
 
@@ -61,10 +49,11 @@ namespace ASampleApp.Pages
 			//_photoURLEntry.SetBinding (Entry.TextProperty, nameof (MyViewModel.PhotoURLEntry));
 			_firstButton.SetBinding(Button.CommandProperty, nameof(MyViewModel.MyFavoriteCommand));
 			_takePhoto.SetBinding(Button.CommandProperty, nameof(MyViewModel.MySecondFavoriteCommand));
+//			_dogImage.SetBinding(Image.SourceProperty, nameof(MyViewModel.PhotoURLEntry));
+			_dogImage.SetBinding(Image.SourceProperty, nameof(MyViewModel.PhotoSourceBaseSixtyFourEntry), BindingMode.OneWay, new Base64ToImageSourceConverter());
 
-            //DELETE
-  //          _tempDogImage.SetBinding(Image.SourceProperty, nameof(MyViewModel.PhotoSourceBaseSixtyFourEntry));
-
+			//DELETE
+			//          _tempDogImage.SetBinding(Image.SourceProperty, nameof(MyViewModel.PhotoSourceBaseSixtyFourEntry));
 
 			Content = new StackLayout()
 			{
@@ -75,13 +64,9 @@ namespace ASampleApp.Pages
 					_firstButton,
 
 					_takePhoto,
+					_dogImage,
 
-
-					 _tempDogImage,
-
-					//_dogImage,
-                   
-
+					// _tempDogImage,
 
 				}
 
@@ -91,8 +76,32 @@ namespace ASampleApp.Pages
 		protected override void OnAppearing()
 		{
 			base.OnAppearing();
-			_takePhoto.Clicked += OnTakePhotoButton_Clicked;
+			//_takePhoto.Clicked += OnTakePhotoButton_Clicked;
+			MyViewModel.TakePhotoFailed += MyViewModel_TakePhotoFailed;
+			MyViewModel.TakePhotoSucceeded += MyViewModel_TakePhotoSucceeded;
 
+
+		}
+
+		protected override void OnDisappearing()
+		{
+			base.OnDisappearing();
+			//_takePhoto.Clicked -= OnTakePhotoButton_Clicked;
+			MyViewModel.TakePhotoFailed -= MyViewModel_TakePhotoFailed;
+			MyViewModel.TakePhotoSucceeded -= MyViewModel_TakePhotoSucceeded;
+
+		}
+
+		void MyViewModel_TakePhotoFailed(object sender, AddDogPhotoBaseSixtyFourViewModel.AlertEventArgs e)
+		{
+			Device.BeginInvokeOnMainThread(async () =>
+										   await DisplayAlert(e.Title, e.Message, "OK"));
+		}
+
+		private void MyViewModel_TakePhotoSucceeded(object sender, AddDogPhotoBaseSixtyFourViewModel.PhotoSavedSuccessAlertEventArgs e)
+		{
+			Device.BeginInvokeOnMainThread(async () =>
+										   await DisplayAlert(e.Title, e.Message, "OK"));
 
 		}
 
@@ -129,18 +138,16 @@ namespace ASampleApp.Pages
 			await stream.ReadAsync(bytes, 0, (int)stream.Length);
 			string base64 = System.Convert.ToBase64String(bytes);
 
-////https://forums.xamarin.com/discussion/23049/how-to-show-images-from-a-list-base64-encoded-string
+            ////https://forums.xamarin.com/discussion/23049/how-to-show-images-from-a-list-base64-encoded-string
 			//Byte[] imageBase64 = System.Convert.FromBase64String(base64);
 			////			_tempDogImage.Source = ImageSource.FromStream(() => { return new MemoryStream(imageBase64);});
             //_tempDogImage.Source = ImageSource.FromStream(() => { return new MemoryStream(Convert.FromBase64String(base64)); });
-
- //           _tempDogImage.Source = ImageSource.FromFile(_file.Path);
+            //_tempDogImage.Source = ImageSource.FromFile(_file.Path);
 
 
 			MyViewModel.PhotoSourceBaseSixtyFourEntry = base64;
-//            int oneInt = 1;
-
- //           stream.Dispose();
+            //int oneInt = 1;
+            //stream.Dispose();
 
             //_tempDogImage.Source = base64;
 			//MyViewModel.PhotoSourceBaseSixtyFourEntry = base64;
@@ -157,18 +164,13 @@ namespace ASampleApp.Pages
 			//});
 
 			//or:
-			_tempDogImage.Source = ImageSource.FromFile(_file.Path);
+			_dogImage.Source = ImageSource.FromFile(_file.Path);
             //_dogImage.Source = ImageSource.FromFile(_file.Path);
             stream.Dispose();
 			_file.Dispose();
 		}
 
-		protected override void OnDisappearing()
-		{
-			base.OnDisappearing();
-			_takePhoto.Clicked -= OnTakePhotoButton_Clicked;
 
-		}
 	}
 }
 

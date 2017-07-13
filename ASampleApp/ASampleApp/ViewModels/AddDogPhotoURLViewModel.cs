@@ -62,20 +62,26 @@ namespace ASampleApp
 			//App.DogRep.AddNewDogPhotoURL (this.FirstEntryText, this.SecondEntryText, this.PhotoURLEntry);
 
             //point 2
-            App.DogRep.AddNewDogPhotoSource(this.FirstEntryText, this.SecondEntryText, this.PhotoSourceEntry);
+            App.DogPhotoRep.AddNewDogPhotoSourcePhoto(this.FirstEntryText, this.SecondEntryText, this.PhotoSourceEntry);
             AddLastDogToCosmosDBAsync();
 			string _lastNameString = App.DogRep.GetLastDog ().Name;
 			string _lastNameStringAdd = System.String.Format ("{0} added to the list!", _lastNameString);
 			this.FirstLabel = _lastNameStringAdd;
+
+			//ADD THE LAST DOG TO THE ViewModel
+			var tempLastDog = App.DogPhotoRep.GetLastDogPhoto();
+			App.MyDogListPhotoPage.MyViewModel._observableCollectionOfDogs.Add(tempLastDog);
+
+
 
 			return;
 		}
 
         private async void AddLastDogToCosmosDBAsync()
         {
-            var myDog = App.DogRep.GetLastDog();
+            var myDog = App.DogPhotoRep.GetLastDogPhoto();
             var myCosmosDog = DogConverter.ConvertToCosmosDog(myDog); 
-            await CosmosDB.CosmosDBService.PostCosmosDogAsync(myCosmosDog);
+            await CosmosDB.CosmosDBServicePhoto.PostCosmosDogAsync(myCosmosDog);
         }
 
         async void OnMySecondFavoriteAction ()

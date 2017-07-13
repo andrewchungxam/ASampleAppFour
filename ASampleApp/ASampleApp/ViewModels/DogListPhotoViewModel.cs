@@ -50,8 +50,9 @@ namespace ASampleApp
 
 
             var myCosmosDog = DogConverter.ConvertToCosmosDog(myItem);
-
-            await CosmosDBService.DeleteCosmosDogAsync(myCosmosDog);
+            var myString = "1";
+            await CosmosDBServicePhoto.DeleteCosmosDogAsync(myCosmosDog);
+            var myString2 = "2";
         }
 
 

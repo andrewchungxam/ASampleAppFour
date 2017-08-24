@@ -112,6 +112,17 @@ namespace ASampleApp
 			//METHOD 1
 			//			_firstButton.Clicked += OnFirstButtonClicked;
 
+            if (_firstEntry.Text != null)
+            {
+                _firstEntry.Text = string.Empty;
+            }
+
+            if(_secondEntry.Text != null)
+            {
+                _secondEntry.Text = string.Empty;
+            }
+
+
 			_goToDogListButton.Clicked += OnToDogListClicked;
 			_addAddDogPhotoButton.Clicked += OnAddDogPhotoButtonClicked;
 			_addAddDogPhotoURLButton.Clicked += OnAddDogPhotoURLButtonClicked;

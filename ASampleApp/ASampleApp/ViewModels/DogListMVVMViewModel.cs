@@ -36,11 +36,20 @@ namespace ASampleApp
 			Debug.WriteLine("DELETE DOG FROM LIST ACTION");
 
 			var myItem = obj as Dog;
-			_observableCollectionOfDogs.Remove(myItem);
+			Debug.WriteLine($"Removing dog {myItem}");
 
-			var myCosmosDog = DogConverter.ConvertToCosmosDog(myItem);
+            if(_observableCollectionOfDogs.Remove(myItem)) 
+            {
+			    var myCosmosDog = DogConverter.ConvertToCosmosDog(myItem);
+				var myString = "1";
+				await CosmosDBService.DeleteCosmosDogAsync(myCosmosDog);
+				var myString2 = "2";
 
-			await CosmosDBService.DeleteCosmosDogAsync(myCosmosDog);
+			}
+            else
+            {
+				Debug.WriteLine($"Dog not reomved from observable collection {myItem}");
+			}
 		}
 
 		public ObservableCollection<Dog> ObservableCollectionOfDogs

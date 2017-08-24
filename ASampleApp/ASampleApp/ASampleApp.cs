@@ -23,7 +23,7 @@ namespace ASampleApp
 		public App ()
 		{
 
-            string dbPath = FileAccessHelper.GetLocalFilePath("dog38.db3");
+            string dbPath = FileAccessHelper.GetLocalFilePath("dog45.db3");
             //USE THIS FOR LIST AND LIST PHOTO PAGE
             DogRep = new DogRepository(dbPath);
 
